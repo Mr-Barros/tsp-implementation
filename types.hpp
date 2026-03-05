@@ -1,3 +1,5 @@
+#ifndef TYPES_H
+#define TYPES_H
 
 struct Point {
     double x, y;
@@ -13,3 +15,5 @@ enum EdgeWeightType {
     GEO,
     ATT
 };
+
+#endif
