@@ -18,7 +18,7 @@ private:
 
     std::vector<Point> read_node_coords(int dimension);
 
-    std::vector<std::vector<double>> read_edge_weights(int dimension, EdgeWeightFormat format);
+    std::vector<std::vector<int>> read_edge_weights(int dimension, EdgeWeightFormat format);
 
 public:
     FileDecoder(std::string filename);

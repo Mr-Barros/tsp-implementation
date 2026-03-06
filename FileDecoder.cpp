@@ -34,9 +34,9 @@ std::vector<Point> FileDecoder::read_node_coords(int dimension) {
     return points;
 }
 
-std::vector<std::vector<double>> FileDecoder::read_edge_weights(int dimension, EdgeWeightFormat format) {
+std::vector<std::vector<int>> FileDecoder::read_edge_weights(int dimension, EdgeWeightFormat format) {
     using namespace std;
-    vector<vector<double>> adj_matrix(dimension, vector<double>(dimension, 0));
+    vector<vector<int>> adj_matrix(dimension, vector<int>(dimension, 0));
 
     for (int row = 0; row < dimension; row++) {
         int col_i = 0, col_f = dimension;
@@ -76,7 +76,7 @@ TSPInstance FileDecoder::decode_input_file() {
     int dimension;
     EdgeWeightType type;
     vector<Point> points;
-    vector<vector<double>> adj_matrix;
+    vector<vector<int>> adj_matrix;
 
     string line, keyword, value;
     while (getline(input_file, line)) {
