@@ -16,4 +16,13 @@ enum EdgeWeightType {
     ATT
 };
 
+enum EdgeWeightFormat {
+    FUNCTION,
+    FULL_MATRIX,
+    UPPER_ROW,
+    LOWER_ROW,
+    UPPER_DIAG_ROW,
+    LOWER_DIAG_ROW
+};
+
 #endif
