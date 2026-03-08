@@ -1,3 +1,7 @@
+/// @file types.cpp
+///
+/// @brief Implementações dos tipos definidos em types.hpp.
+
 #include "types.hpp"
 
 Point::Point() : x(0), y(0) {}
