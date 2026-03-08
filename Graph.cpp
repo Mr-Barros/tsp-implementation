@@ -1,6 +1,6 @@
 #include "Graph.hpp"
 
-Graph::Graph(int _n) : adj_matrix(n, std::vector<int>(n, -1)), n(_n) {}
+Graph::Graph(int _n) : adj_matrix(_n, std::vector<int>(_n, -1)), n(_n) {}
 Graph::Graph(std::vector<std::vector<int>> _adj_matrix) : adj_matrix(_adj_matrix), n(_adj_matrix.size()) {}
 
 void Graph::add_edge(Edge e) {
