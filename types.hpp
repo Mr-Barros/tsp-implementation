@@ -8,6 +8,14 @@ struct Point {
     Point(double _x, double _y);
 };
 
+struct Edge {
+    int from, to, cost;
+
+    Edge(int _from, int _to, int _cost);
+
+    bool operator>(const Edge& other) const;
+};
+
 enum EdgeWeightType {
     EXPLICIT,
     EUC_2D,
