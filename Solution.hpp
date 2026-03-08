@@ -21,7 +21,7 @@ private:
 
     Multigraph combine_into_multigraph(Graph g1, Graph g2);
 
-    void dfs(int i, Multigraph& mg, std::map<Edge, bool>& vis_edge, std::vector<int>& euler_tour);
+    void dfs(int i, Multigraph& mg, std::vector<bool>& vis_edge, std::vector<int>& euler_tour);
 
     std::vector<int> find_eulerian_tour(Multigraph mg);
 

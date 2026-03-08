@@ -9,9 +9,10 @@ struct Point {
 };
 
 struct Edge {
-    int from, to, cost;
+    int id, from, to, cost;
 
     Edge(int _from, int _to, int _cost);
+    Edge(int _id, int _from, int _to, int _cost);
 
     bool operator>(const Edge& other) const;
 };

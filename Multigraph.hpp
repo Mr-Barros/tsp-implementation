@@ -8,15 +8,16 @@
 class Multigraph {
 private:
     std::vector<std::vector<Edge>> adj_list;
-    int n;
+    int n, m;
 
 public:
     Multigraph(int _n);
-    Multigraph(std::vector<std::vector<int>> adj_matrix);
 
-    void add_edge(Edge e);
+    void add_edge(int i, int j, int cost);
 
     size_t size();
+
+    int edge_count();
 
     std::vector<Edge>& operator[](int i);
 };

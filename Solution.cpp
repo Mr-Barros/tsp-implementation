@@ -1,11 +1,11 @@
-#include <Solution.hpp>
+#include "Solution.hpp"
 
 Graph Solution::minimum_spanning_tree(Graph g) {
     using namespace std;
 
     int n = g.size();
     Graph mst(n);
-    priority_queue<Edge, vector<Edge>, greater<Edge>()> edges;
+    priority_queue<Edge, vector<Edge>, greater<Edge>> edges;
     vector<bool> included(n, false);
 
     included[0] = true;
@@ -48,7 +48,7 @@ Graph Solution::perfect_matching(Graph g, std::set<int> nodes) {
 
     int n = g.size();
     Graph matching(n);
-    priority_queue<Edge, vector<Edge>, greater<Edge>()> edges;
+    priority_queue<Edge, vector<Edge>, greater<Edge>> edges;
 
     for (int i : nodes) {
         for (int j : nodes) {
@@ -78,17 +78,18 @@ Multigraph Solution::combine_into_multigraph(Graph g1, Graph g2) {
     for (int i = 0; i < n; i++) {
         for (int j = 0; j < n; j++) {
             if (i == j) continue;
-            if (g1.has_edge(i, j)) mg.add_edge(Edge(i, j, g1[i][j]));
-            if (g2.has_edge(i, j)) mg.add_edge(Edge(i, j, g2[i][j]));
+            if (g1.has_edge(i, j)) mg.add_edge(i, j, g1[i][j]);
+            if (g2.has_edge(i, j)) mg.add_edge(i, j, g2[i][j]);
         }
     }
 
     return mg;
 }
 
-void Solution::dfs(int i, Multigraph& mg, std::map<Edge, bool>& vis_edge, std::vector<int>& euler_tour) {
+void Solution::dfs(int i, Multigraph& mg, std::vector<bool>& vis_edge, std::vector<int>& euler_tour) {
     for (Edge e : mg[i]) {
-        if (vis_edge[e]) continue;
+        if (vis_edge[e.id]) continue;
+        vis_edge[e.id] = true;
         dfs(e.to, mg, vis_edge, euler_tour);
     }
     euler_tour.push_back(i);
@@ -97,7 +98,7 @@ void Solution::dfs(int i, Multigraph& mg, std::map<Edge, bool>& vis_edge, std::v
 std::vector<int> Solution::find_eulerian_tour(Multigraph mg) {
     using namespace std;
 
-    map<Edge, bool> vis_edge;
+    vector<bool> vis_edge(mg.edge_count(), false);
     vector<int> euler_tour;
 
     dfs(0, mg, vis_edge, euler_tour);
