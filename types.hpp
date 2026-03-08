@@ -11,8 +11,8 @@
 
 /// @brief Representa um ponto no plano cartesiano.
 struct Point {
-    double x;   /// A coordenada x do ponto.
-    double y;   /// A coordenada y do ponto.
+    double x;   ///< A coordenada x do ponto.
+    double y;   ///< A coordenada y do ponto.
 
     /// @brief Inicializa o ponto com ambas as coordenadas em 0.
     Point();
@@ -25,10 +25,10 @@ struct Point {
 
 /// @brief Representa uma aresta em um grafo com pesos.
 struct Edge {
-    int id;     /// O identificador único da aresta.
-    int from;   /// O vértice de origem da aresta.
-    int to;     /// O vértice de destino da aresta.
-    int cost;   /// O peso (ou custo) da aresta.
+    int id;     ///< O identificador único da aresta.
+    int from;   ///< O vértice de origem da aresta.
+    int to;     ///< O vértice de destino da aresta.
+    int cost;   ///< O peso (ou custo) da aresta.
 
     /// @brief Inicializa a aresta com os parâmetros from, to e cost fornecidos, e o parâmetro id em -1.
     /// @param _from O vértice de origem da aresta.
@@ -58,7 +58,7 @@ enum EdgeWeightType {
     ATT             ///< Uma função especial determina as distâncias nos problemas att48 e att532.
 };
 
-/// @brief Indica o formato no qual os pesos das arestas são fornecidos pela instância.
+/// @brief Indica o formato no qual os pesos das arestas são fornecidos pela instância, na seção EDGE_WEIGHT_SECTION.
 enum EdgeWeightFormat {
     FUNCTION,       ///< Os pesos são determinados por uma função de distância, dentre as opções de EdgeWeightType.
     FULL_MATRIX,    ///< Os pesos são dados em uma matriz completa.

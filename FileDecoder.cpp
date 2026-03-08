@@ -1,3 +1,7 @@
+/// @file FileDecoder.cpp
+///
+/// @brief Implementa os métodos da classe FileDecoder, definida em FileDecoder.hpp.
+
 #include "FileDecoder.hpp"
 
 EdgeWeightType FileDecoder::decode_type(std::string s) {
