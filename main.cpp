@@ -15,6 +15,8 @@ int main(void) {
         try {
             FileDecoder decoder(filename);
             TSPInstance tsp = decoder.decode_input_file();
+            Graph g = tsp.build_graph();
+            cout << "Tamanho do caminho canônico: " << g.canonical_tour_length() << endl;
         } catch (const std::string& ex) {
             cout << ex << endl;
         }
