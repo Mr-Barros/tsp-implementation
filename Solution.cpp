@@ -132,19 +132,19 @@ std::vector<int> Solution::convert_into_tsp_tour(std::vector<int> euler_tour) {
 std::vector<int> Solution::find_tsp_tour(Graph g) {
     using namespace std;
 
-    // 1 - Encontrar Árvore Geradora Mínima do grafo
+    // 1 - Encontrar Árvore Geradora Mínima (MST) do grafo
     Graph mst = minimum_spanning_tree(g);
 
-    // 2 - Isolar conjunto S de vértices de grau ímpar da AGM
+    // 2 - Isolar conjunto de vértices de grau ímpar da AGM
     set<int> nodes = odd_degree_nodes(mst);
 
-    // 3 - Encontrar Min Weight Perfect Matching M do conjunto S
+    // 3 - Encontrar perfect matching do conjunto de vértices
     Graph matching = perfect_matching(g, nodes);
 
-    // 4 - Combinar T e M em um multigrafo G
+    // 4 - Combinar MST e perfect matching em um multigrafo
     Multigraph mg = combine_into_multigraph(mst, matching);
 
-    // 5 - Gerar caminho euleriano de G
+    // 5 - Gerar caminho euleriano do multigrafo
     vector<int> euler_tour = find_eulerian_tour(mg);
 
     // 6 - Gerar caminho TSP a partir do caminho euleriano
