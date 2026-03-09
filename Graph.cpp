@@ -1,3 +1,7 @@
+/// @file Graph.cpp
+///
+/// @brief Implementa as funções definidas em Graph.hpp.
+
 #include "Graph.hpp"
 
 Graph::Graph(int _n) : adj_matrix(_n, std::vector<int>(_n, -1)), n(_n) {}
