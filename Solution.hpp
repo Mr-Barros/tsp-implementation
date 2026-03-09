@@ -5,6 +5,7 @@
 #ifndef SOLUTION_H
 #define SOLUTION_H
 
+#include <iostream>
 #include <vector>
 #include <set>
 #include <queue>
@@ -22,10 +23,11 @@
 /// depth first search para encontrar o caminho euleriano.
 class Solution {
 private:
+    Graph tsp_graph;    ///< O grafo completo com pesos não-direcionado que representa a instância do TSP.
+
     /// @brief Encontra a Árvore Geradora Mínima (MST) do grafo do TSP, utilizando o algoritmo de Prim.
-    /// @param g O grafo completo com pesos não-direcionado que representa a instância do TSP.
     /// @return O grafo que representa a MST do grafo original.
-    Graph minimum_spanning_tree(Graph g);
+    Graph minimum_spanning_tree();
 
     /// @brief Determina o conjunto de vértices do grafo g que possuem grau ímpar.
     /// @param g Um grafo com pesos não-direcionado.
@@ -35,10 +37,9 @@ private:
     /// @brief Seleciona as arestas de um grafo completo para fazer um perfect 
     /// matching entre um conjunto par de vértices. Utiliza um algoritmo guloso
     /// para tentar minimizar o custo total.
-    /// @param g Um grafo completo com pesos não-direcionado.
-    /// @param nodes Um conjunto par de vértices de g.
+    /// @param nodes Um conjunto par de vértices do grafo original.
     /// @return Um grafo que representa o matching realizado.
-    Graph perfect_matching(Graph g, std::set<int> nodes);
+    Graph perfect_matching(std::set<int> nodes);
 
     /// @brief Combina dois grafos de mesma dimensão em um multigrafo.
     /// @param g1 O primeiro grafo.
@@ -65,12 +66,20 @@ private:
     std::vector<int> convert_into_tsp_tour(std::vector<int> euler_tour);
 
 public:
+    /// @brief Inicializa a classe com um grafo que representa a instância do TSP.
+    /// @param _tsp_graph O grafo completo com pesos não-direcionado que representa a instância do TSP.
+    Solution(Graph _tsp_graph);
+
     /// @brief Encontra um caminho TSP para o grafo descrito em uma instância do TSP, 
     /// utilizando uma implementação do algoritmo de Christofides.
-    /// @param g O grafo que representa a instância do TSP.
-    /// @return O vetor referente a um caminho TSP em g. 
-    /// Contém vértices de g na ordem em que aparecem no caminho.
-    std::vector<int> find_tsp_tour(Graph g);
+    /// @return O vetor referente a um caminho TSP no grafo. 
+    /// Contém vértices do grafo original na ordem em que aparecem no caminho.
+    std::vector<int> find_tsp_tour();
+
+    /// @brief Calcula o custo do caminho TSP no grafo.
+    /// @param tsp_tour O vetor referente a um caminho TSP no grafo.
+    /// @return A soma dos pesos das arestas no caminho TSP.
+    int tsp_tour_cost(std::vector<int> tsp_tour);
 };
 
 #endif

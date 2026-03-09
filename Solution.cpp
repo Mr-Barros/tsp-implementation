@@ -4,17 +4,17 @@
 
 #include "Solution.hpp"
 
-Graph Solution::minimum_spanning_tree(Graph g) {
+Graph Solution::minimum_spanning_tree() {
     using namespace std;
 
-    int n = g.size();
+    int n = tsp_graph.size();
     Graph mst(n);
     priority_queue<Edge, vector<Edge>, greater<Edge>> edges;
     vector<bool> included(n, false);
 
     included[0] = true;
     for (int to = 0; to < n; to++) {
-        if (g.has_edge(0, to)) edges.push(Edge(0, to, g[0][to]));
+        if (tsp_graph.has_edge(0, to)) edges.push(Edge(0, to, tsp_graph[0][to]));
     }
 
     while (!edges.empty()) {
@@ -27,7 +27,7 @@ Graph Solution::minimum_spanning_tree(Graph g) {
 
         included[e.to] = true;
         for (int i = 0; i < n; i++) {
-            if (g.has_edge(e.to, i)) edges.push(Edge(e.to, i, g[e.to][i]));
+            if (tsp_graph.has_edge(e.to, i)) edges.push(Edge(e.to, i, tsp_graph[e.to][i]));
         }
     }
 
@@ -47,17 +47,17 @@ std::set<int> Solution::odd_degree_nodes(Graph g) {
     return nodes;
 }
 
-Graph Solution::perfect_matching(Graph g, std::set<int> nodes) {
+Graph Solution::perfect_matching(std::set<int> nodes) {
     using namespace std;
 
-    int n = g.size();
+    int n = tsp_graph.size();
     Graph matching(n);
     priority_queue<Edge, vector<Edge>, greater<Edge>> edges;
 
     for (int i : nodes) {
         for (int j : nodes) {
             if (i >= j) continue;
-            edges.push(Edge(i, j, g[i][j]));
+            edges.push(Edge(i, j, tsp_graph[i][j]));
         }
     }
 
@@ -129,17 +129,19 @@ std::vector<int> Solution::convert_into_tsp_tour(std::vector<int> euler_tour) {
     return tsp_tour;
 }
 
-std::vector<int> Solution::find_tsp_tour(Graph g) {
+Solution::Solution(Graph _tsp_graph) : tsp_graph(_tsp_graph) {}
+
+std::vector<int> Solution::find_tsp_tour() {
     using namespace std;
 
     // 1 - Encontrar Árvore Geradora Mínima (MST) do grafo
-    Graph mst = minimum_spanning_tree(g);
+    Graph mst = minimum_spanning_tree();
 
     // 2 - Isolar conjunto de vértices de grau ímpar da AGM
     set<int> nodes = odd_degree_nodes(mst);
 
     // 3 - Encontrar perfect matching do conjunto de vértices
-    Graph matching = perfect_matching(g, nodes);
+    Graph matching = perfect_matching(nodes);
 
     // 4 - Combinar MST e perfect matching em um multigrafo
     Multigraph mg = combine_into_multigraph(mst, matching);
@@ -151,4 +153,23 @@ std::vector<int> Solution::find_tsp_tour(Graph g) {
     vector<int> tsp_tour = convert_into_tsp_tour(euler_tour);
 
     return tsp_tour;
+}
+
+int Solution::tsp_tour_cost(std::vector<int> tsp_tour) {
+    if (tsp_graph.size() != tsp_tour.size()) {
+        std::cerr << "Erro inesperado: tamanho do caminho TSP é diferente do tamanho do grafo" << std::endl;
+        exit(EXIT_FAILURE);
+    }
+
+    int n = tsp_graph.size();
+    int cost = 0;
+    int u, v;
+    for (int i = 0; i < n - 1; i++) {
+        u = tsp_tour[i];
+        v = tsp_tour[i + 1];
+        cost += tsp_graph[u][v];
+    }
+    cost += tsp_graph[v][tsp_tour[0]];
+
+    return cost;
 }
