@@ -27,6 +27,7 @@ Graph Solution::minimum_spanning_tree() {
 
         included[e.to] = true;
         for (int i = 0; i < n; i++) {
+            if (included[i]) continue;
             if (tsp_graph.has_edge(e.to, i)) edges.push(Edge(e.to, i, tsp_graph[e.to][i]));
         }
     }
