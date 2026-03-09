@@ -1,6 +1,6 @@
 CXXFLAGS = -g -std=c++23 -Wall
 
-OBJECTS = main.o types.o Graph.o Multigraph.o FileDecoder.o TSPInstance.o Solution.o
+OBJECTS = src/main.o src/types.o src/Graph.o src/Multigraph.o src/FileDecoder.o src/TSPInstance.o src/Solution.o
 EXECUTABLE = main
 
 build: $(OBJECTS)
