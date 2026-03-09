@@ -26,5 +26,5 @@ int Graph::canonical_tour_length() {
 }
 
 bool Graph::has_edge(int i, int j) { 
-    return adj_matrix[i][j] != -1; 
+    return adj_matrix[i][j] > 0; 
 }

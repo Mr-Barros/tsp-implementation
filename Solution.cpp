@@ -1,3 +1,7 @@
+/// @file Solution.cpp
+///
+/// @brief Implementa as funções da classe Solution, definida em Solution.hpp.
+
 #include "Solution.hpp"
 
 Graph Solution::minimum_spanning_tree(Graph g) {
@@ -10,7 +14,7 @@ Graph Solution::minimum_spanning_tree(Graph g) {
 
     included[0] = true;
     for (int to = 0; to < n; to++) {
-        edges.push(Edge(0, to, g[0][to]));
+        if (g.has_edge(0, to)) edges.push(Edge(0, to, g[0][to]));
     }
 
     while (!edges.empty()) {
@@ -23,7 +27,7 @@ Graph Solution::minimum_spanning_tree(Graph g) {
 
         included[e.to] = true;
         for (int i = 0; i < n; i++) {
-            edges.push(Edge(e.to, i, g[e.to][i]));
+            if (g.has_edge(e.to, i)) edges.push(Edge(e.to, i, g[e.to][i]));
         }
     }
 
