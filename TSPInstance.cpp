@@ -1,3 +1,7 @@
+/// @file TSPInstance.cpp
+///
+/// @brief Implementa as funções da classe TSPInstance, definida em TSPInstance.hpp.
+
 #include "TSPInstance.hpp"
 
 int TSPInstance::nint(double x) { return (int) (x + 0.5); }
