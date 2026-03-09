@@ -59,6 +59,8 @@ TSPInstance::TSPInstance(
 ) : n(_n), type(_type), points(_points), adj_matrix(_adj_matrix) {}
 
 Graph TSPInstance::build_graph() {
+    if (type == EXPLICIT) return Graph(adj_matrix);
+
     adj_matrix.assign(n, std::vector<int>(n, 0));
 
     if (type == GEO) calculate_geo_coords();
