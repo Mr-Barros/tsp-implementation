@@ -17,6 +17,7 @@
 /// decodificar o arquivo de entrada.
 class FileDecoder {
 private:
+    std::string filename;       ///< O nome do arquivo de entrada, sem a extensão .tsp.
     std::ifstream input_file;   ///< O arquivo de texto .tsp que descreve a instância.
     EdgeWeightFormat format;    ///< O formato no qual os pesos das arestas são dados no arquivo.
 
@@ -43,13 +44,17 @@ private:
 
 public:
     /// @brief Inicializa o FileDecoder, abrindo o arquivo de entrada correspondente.
-    /// @param filename O nome do arquivo de entrada, sem a extensão .tsp. Deve estar presente na pasta instance.
-    FileDecoder(std::string filename);
+    /// @param _filename O nome do arquivo de entrada, sem a extensão .tsp. Deve estar presente na pasta instance.
+    FileDecoder(std::string _filename);
 
     /// @brief Percorre o arquivo de entrada, criando uma TSPInstance com as informações extraídas.
     /// @return Um objeto do tipo TSPInstance, que pode ter o vetor de pontos ou a matriz de 
     /// adjacências preenchida, de acordo com a especificação da instância.
     TSPInstance decode_input_file();
+
+    /// @brief Encontra o custo da solução ótima para o problema, conforme descrito em optimal.txt.
+    /// @return O custo do caminho TSP ótimo da instância atual.
+    int get_optimal_cost();
 };
 
 #endif

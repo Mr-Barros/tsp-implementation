@@ -17,25 +17,33 @@ int main(void) {
             FileDecoder decoder(filename);
             TSPInstance tsp = decoder.decode_input_file();
             Graph tsp_graph = tsp.build_graph();
-            
+
             Solution sol(tsp_graph);
             vector<int> tsp_tour = sol.find_tsp_tour();
 
-            cout << "Caminho TSP encontrado:" << endl;
+            cout << "\nCaminho TSP encontrado:" << endl;
             for (int i = 0; i < tsp_tour.size(); i++) {
                 cout << tsp_tour[i] + 1 << " \n"[i == tsp_tour.size() - 1];
             }
+            cout << endl;
             
             int tour_cost = sol.tsp_tour_cost(tsp_tour);
-            cout << "Custo do caminho TSP: " << tour_cost << endl;
+            cout << "Custo do caminho TSP encontrado: " << tour_cost << endl;
+
+            int optimal_cost = decoder.get_optimal_cost();
+            cout << "Custo do caminho TSP ótimo: " << optimal_cost << endl;
+
+            double factor = (double) tour_cost / (double) optimal_cost;
+            cout << fixed << setprecision(3);
+            cout << "(Custo encontrado) / (Custo ótimo): " << factor << endl;
 
             int canonical_cost = tsp_graph.canonical_tour_length();
-            cout << "Custo do caminho canônico: " << canonical_cost << endl;
+            cout << "Custo do caminho canônico (para comparação): " << canonical_cost << endl;
         } catch (const std::string& ex) {
             cout << ex << endl;
         }
 
-        cout << "Digite 1 para rodar outra instância, ou 0 para sair: ";
+        cout << "\nDigite 1 para rodar outra instância, ou 0 para sair: ";
         cin >> repeat;
     } while (repeat != "0");
 

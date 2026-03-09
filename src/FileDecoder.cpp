@@ -65,7 +65,7 @@ std::vector<std::vector<int>> FileDecoder::read_edge_weights(int dimension, Edge
     return adj_matrix;
 }
 
-FileDecoder::FileDecoder(std::string filename) {
+FileDecoder::FileDecoder(std::string _filename) : filename(_filename) {
     using namespace std;
     string path("instance/" + filename + ".tsp");
     input_file = ifstream(path, ios_base::in);
@@ -101,4 +101,21 @@ TSPInstance FileDecoder::decode_input_file() {
     }
 
     return TSPInstance(dimension, type, points, adj_matrix);
+}
+
+int FileDecoder::get_optimal_cost() {
+    using namespace std;
+    
+    string path("optimal.txt");
+    ifstream opt_file(path, ios_base::in);
+
+    string keyword, value;
+    int cost;
+    while (getline(opt_file, keyword, ':') and getline(opt_file, value)) {
+        if (keyword.contains(filename)) {
+            stringstream(value) >> cost;
+            return cost;
+        }
+    }
+    throw std::format("Não foi possível encontrar a solução ótima da instância {}", filename);
 }
