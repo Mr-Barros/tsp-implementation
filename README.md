@@ -34,7 +34,26 @@ Os arquivos .tsp, que contém instâncias simétricas do TSP, foram encontrados 
 Não foram utilizadas dependências como frameworks ou bibliotecas externas. O projeto foi todo implementado na linguagem C++, utilizando a ferramenta Make para facilitar a compilação. Não foram utilizadas ferramentas de IA generativa em nenhuma etapa do desenvolvimento.
 
 ### Resultados Obtidos
-O resultado final é uma aplicação de terminal que solicita ao usuário o nome de uma instância do TSP, e em seguida exibe uma solução para o problema encontrada de acordo com a abordagem descrita acima.
+O resultado final é uma aplicação de terminal que solicita ao usuário o nome de uma instância do TSP, e exibe uma solução para o problema encontrada de acordo com a abordagem descrita acima. Em seguida, é exibido um pequeno relatório em relação ao desempenho da solução, informando o custo do caminho encontrado, o custo do caminho ótimo (extraído do arquivo optimal.txt, cujo conteúdo foi retirado da TSPLib), calculando a proporção entre os dois. Para fins de comparação, o relatório também exibe o custo do caminho canônico (1, 2, ..., n, 1) do grafo.
+
+A seguir, estão listadas as proporções (custo do caminho encontrado / custo do caminho ótimo) para algumas instâncias testadas:
+
+- a280: 1.522
+- bayg29: 1.213
+- d15112: 1.604
+- dantzig42: 1.519
+- fl3795: 1.630
+- gr666: 1.535
+- kroB100: 1.513
+- pr76: 1.459
+- rat99: 1.438
+- rd100: 1.676
+- swiss42: 1.339
+- ts225: 1.784
+- u1432: 1.530
+- ulysses16: 1.345
+
+Analisando os resultados, vemos que a proporção tende a ser por volta de 1.5, em alguns casos passando de 1.7. Isso se deve à forma simplificada com a qual o Algoritmo de Christofides foi implementado, e a seguir discutimos formas de melhorar consideravelmente os resultados obtidos.
 
 ### Possíveis Melhorias
 Embora o Algoritmo de Christofides garanta um custo com fator de 3/2 do custo do caminho ótimo no pior caso, essa métrica leva em consideração a implementação de um algoritmo de minimum weight perfect mathing, que garante que o matching entre os nós de grau ímpar da MST terá o menor custo possível. O algoritmo guloso utilizado não garante encontrar o matching de menor custo. A implementação de um algoritmo de minimum weight perfect matching tende a ser bastante complicada, tendo em mente o escopo deste projeto. Porém, uma vez implementado, o algoritmo poderia ser facilmente incorporado ao projeto, melhorando o resultado no pior caso.
